@@ -1,0 +1,96 @@
+body {
+    font: 12px Arial, sans-serif;
+}
+
+#palyer {
+    color: #555;
+    font-size: 18px;
+    text-align: center;
+
+    width: 600px;
+    height: 100%;
+    margin: 50px auto;
+
+    background: #eee;
+    border: 1px solid #ccc;
+    max-height: 300px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+
+.b-songinfo{
+    float: left;
+    padding: 0 16%;
+}
+
+.b-songinfo__visualization{
+    background: #c4c4c4;
+
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: 1px solid #5A64FF;
+    float: left;
+    overflow: hidden;
+}
+.b-mainblock{
+    width: 100%;
+    height: 100%;
+    float: left;
+}
+
+.b-mainblock__text{
+    float: left;
+    width: 100%;
+    margin-top: 14%;
+}
+.b-song{
+    display: none;
+}
+.b-dropzone{
+    width: 100%;
+    height: 100%;
+    -webkit-border-radius: 0 0 10px 10px;
+    -moz-border-radius:  0 0 10px 10px;
+    border-radius: 0 0 10px 10px;
+}
+#dropZone.hover {
+    background: #ddd;
+    border-color: #aaa;
+}
+#palyer.b-error,
+#palyer .b-error {
+    background: #faa;
+    border-color: #f00;
+}
+
+#dropZone.drop {
+    background: #3333FF;
+    border-color: #0f0;
+}
+
+.b-mainblock .b-dropzone.drop{
+    color: #fff;
+}
+
+.b-equalizer
+{
+    float: left;
+    width: 100%;
+    padding: 12px 0;
+}
+
+.b-buttons button
+{
+    padding: 10px 30px;
+    margin-left: 10px;
+    font-size: 20px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background: #3333FF;
+    color: #fff;
+    border: none;
+}
