@@ -565,7 +565,7 @@
 
 playerSHRI(document.getElementById('palyer'),{
     eqDefault: 'rock',
-    visualizationType: 2, //  варианты 0,1,2
+    visualizationType: 0, //  варианты 0,1,2
     visualizationColor: '#3333FF'
 });
 
