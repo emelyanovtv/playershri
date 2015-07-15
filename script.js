@@ -232,7 +232,7 @@
         addEvent : function(elem , type, handler){
             if(typeof elem != 'undefined')
                 elem[type] = handler;
-        }, 
+        },
         /*
          * Функция для обработчика событий из input и блока drop{dropzZone}
          * @param e {Event}
