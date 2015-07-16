@@ -1152,13 +1152,11 @@
                 if(bytes == 0) callback('',[]);
             }
             var responseText = '';
-            reader.onload = function(ev) {
-                if(typeof ev != 'undefined')
-                {
-                    if(ev.target.result){
-                        responseText = ev.target.result;
-                    }
-                    if(ev.target.result.length > maxdata) this.abort();
+            reader.onloadend = function(ev) {
+                if(reader.result){
+                    responseText = reader.result;
+                }
+                    if(reader.result.length > maxdata) reader.abort();
 
                     if(responseText.length > pos + bits_required && bits_required){
                         var data = responseText.substr(pos, bits_required);
@@ -1166,13 +1164,12 @@
                         pos += bits_required;
                         bits_required = 0;
                         if(handle(data, arrdata) === false){
-                            this.abort();
+                          reader.abort();
                             return;
                         }
                     }
 
-                    setTimeout(arguments.callee, 0);
-                }
+                setTimeout(arguments.callee, 0);
             };
             reader.readAsBinaryString(file);
             return [reader, ID3v2.parseStream(read, onComplete)];
@@ -1182,7 +1179,7 @@
 
 playerSHRI(document.getElementById('palyer'),{
     eqDefault: 'rock',
-    visualizationType: 0, //  варианты 0,1,2
+    visualizationType: 2, //  варианты 0,1,2
     visualizationColor: '#3333FF'
 });
 //конец )
