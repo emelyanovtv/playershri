@@ -1136,45 +1136,6 @@
             })
             return tag;
         },
-
-        parseURL: function(url, onComplete){
-            var xhr = new XMLHttpRequest();
-            xhr.open('get', url, true);
-            xhr.overrideMimeType('text/plain; charset=x-user-defined');
-
-            var pos = 0,
-                bits_required = 0,
-                handle = function(){},
-                maxdata = Infinity;
-
-            function read(bytes, callback, newmax){
-                bits_required = bytes;
-                handle = callback;
-                maxdata = newmax;
-                if(bytes == 0) callback('',[]);
-            }
-            var responseText = '';
-            (function(){
-                if(xhr.responseText){
-                    responseText = xhr.responseText;
-                }
-                if(xhr.responseText.length > maxdata) xhr.abort();
-
-                if(responseText.length > pos + bits_required && bits_required){
-                    var data = responseText.substr(pos, bits_required);
-                    var arrdata = data.split('').map(function(e){return e.charCodeAt(0) & 0xff});
-                    pos += bits_required;
-                    bits_required = 0;
-                    if(handle(data, arrdata) === false){
-                        xhr.abort();
-                        return;
-                    }
-                }
-                setTimeout(arguments.callee, 0);
-            })()
-            xhr.send(null);
-            return [xhr, ID3v2.parseStream(read, onComplete)];
-        },
         parseFile: function(file, onComplete){
 
             var reader = new FileReader();
@@ -1192,22 +1153,26 @@
             }
             var responseText = '';
             reader.onload = function(ev) {
-                if(reader.result){
-                    responseText = reader.result;
-                }
-                if(reader.result.length > maxdata) reader.abort();
-
-                if(responseText.length > pos + bits_required && bits_required){
-                    var data = responseText.substr(pos, bits_required);
-                    var arrdata = data.split('').map(function(e){return e.charCodeAt(0) & 0xff});
-                    pos += bits_required;
-                    bits_required = 0;
-                    if(handle(data, arrdata) === false){
-                        reader.abort();
-                        return;
+                if(typeof ev != 'undefined')
+                {
+                    if(ev.target.result){
+                        responseText = ev.target.result;
                     }
+                    if(ev.target.result.length > maxdata) this.abort();
+
+                    if(responseText.length > pos + bits_required && bits_required){
+                        var data = responseText.substr(pos, bits_required);
+                        var arrdata = data.split('').map(function(e){return e.charCodeAt(0) & 0xff});
+                        pos += bits_required;
+                        bits_required = 0;
+                        if(handle(data, arrdata) === false){
+                            this.abort();
+                            return;
+                        }
+                    }
+
+                    setTimeout(arguments.callee, 0);
                 }
-                setTimeout(arguments.callee, 0);
             };
             reader.readAsBinaryString(file);
             return [reader, ID3v2.parseStream(read, onComplete)];
@@ -1217,7 +1182,7 @@
 
 playerSHRI(document.getElementById('palyer'),{
     eqDefault: 'rock',
-    visualizationType: 0, //  варианты 0,1,2
+    visualizationType: 2, //  варианты 0,1,2
     visualizationColor: '#3333FF'
 });
 //конец )
