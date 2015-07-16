@@ -23,6 +23,16 @@
     padding: 0 16%;
 }
 
+.b-spinner{
+    background:url(loading.gif) no-repeat;
+    width: 192px;
+    height: 192px;
+    display: none;
+    margin: 10% 32%;
+    float: left;
+    background-size: 100%;
+}
+
 .b-songinfo__visualization{
     background: #c4c4c4;
 

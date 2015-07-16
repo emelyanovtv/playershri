@@ -152,6 +152,8 @@
             html += "<input type='file' name='file' value=''/>";
             html += "</div>";
             html += "<div id='dropZone' class='b-dropzone'>";
+            html += "<div id='spinner' class='b-spinner'>";
+            html += "</div>";
             html += "<span class='b-mainblock__text'>Бросать сюда</span>";
             html += "</div>";
             html += "<div class='b-song'>";
@@ -168,6 +170,7 @@
             html += "</div>";
             this.html(this.object,html);
             this.buttons = this.getBySelectors('.b-buttons button');
+            this.spinner = this.getByID("spinner");
             this.dropZone = this.getByID("dropZone");
             this.input = this.getBySelectors('input[type="file"]');
             this.equalizerBox = this.getBySelectors('.b-equalizer select');
@@ -241,10 +244,10 @@
          */
         prepareFile: function(e, type)
         {
+
             e.stopPropagation();
             e.preventDefault();
             this.removeClass(this.dropZone, 'hover');
-
             var file = e[type].files[0];
             var url = file.urn || file.name;
             if(typeof(file) == 'object')
@@ -269,6 +272,7 @@
         renderSong:function(tags){
             _t.metadata = tags;
             _t.loadSongInfo();
+            _t.toggleElements(false);
         },
         /*
          * Функция инициализации звукового файла
@@ -282,10 +286,10 @@
                 _t.audioBuffer = buffer;
                 ID3v2.parseFile(_t.file,_t.renderSong);
                 _t.show(_t.getByClass('b-song')[0]);
-                _t.toggleElements(false);
             }, function(e) {
                 _t.removeClass(this.dropZone, 'drop');
                 _t.error('Формат данного файла не поддерживается!');
+                _t.toggleElements(false);
             });
         },
 
@@ -348,6 +352,17 @@
             this.buttons[0].disabled = val;
             this.buttons[1].disabled = val;
             this.equalizerBox[0].disabled = val;
+            if(val)
+            {
+                this.show(this.spinner);
+                this.hide(this.getByClass('b-mainblock__text')[0]);
+            }
+            else
+            {
+                this.hide(this.spinner);
+                this.show(this.getByClass('b-mainblock__text')[0]);
+            }
+
         },
         /*
          * Функция для создания источника (пересоздается)
@@ -562,6 +577,10 @@
         show:function(o)
         {
             o.style.display = 'block';
+        },
+        hide:function(o)
+        {
+            o.style.display = 'none';
         },
         removeClass:function(o, c)
         {
