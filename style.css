@@ -10,7 +10,7 @@
 
     background: #eee;
     border: 1px solid #ccc;
-    max-height: 300px;
+    min: 300px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -41,7 +41,7 @@
 .b-mainblock__text{
     float: left;
     width: 100%;
-    margin-top: 14%;
+    margin-top: 12%;
 }
 .b-song{
     display: none;
