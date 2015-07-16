@@ -256,16 +256,19 @@
                     _t.error('Файл слишком большой!');
                     return false;
                 }
-                this.addClass(this.dropZone, 'drop');
-                this.file = file;;
-                var reader = new FileReader();
-                this.toggleElements(true);
-                reader.onload = function(ev) {
-                    _t.clearParams();
-                    _t.initSound(ev.target.result);
-                };
-                this.removeClass(this.object, 'b-error');
-                reader.readAsArrayBuffer(file);
+                else
+                {
+                    this.addClass(this.dropZone, 'drop');
+                    this.file = file;;
+                    var reader = new FileReader();
+                    this.toggleElements(true);
+                    reader.onload = function(ev) {
+                        _t.clearParams();
+                        _t.initSound(ev.target.result);
+                    };
+                    this.removeClass(this.object, 'b-error');
+                    reader.readAsArrayBuffer(file);
+                }
             }
 
         },
@@ -287,7 +290,7 @@
                 ID3v2.parseFile(_t.file,_t.renderSong);
                 _t.show(_t.getByClass('b-song')[0]);
             }, function(e) {
-                _t.removeClass(this.dropZone, 'drop');
+                _t.removeClass(_t.dropZone, 'drop');
                 _t.error('Формат данного файла не поддерживается!');
                 _t.toggleElements(false);
             });
