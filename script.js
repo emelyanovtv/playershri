@@ -436,7 +436,7 @@
             {
                 if(this.metadata.hasOwnProperty('Artist') && this.metadata.hasOwnProperty('Title'))
                 {
-                    if(this.metadata.Artist.length && this.metadata.Title.length);
+                    if(this.metadata.Artist.trim().length > 0 && this.metadata.Title.trim().length > 0)
                         name = "Исполнитель : " + this.metadata.Artist + "; Название: " + this.metadata.Title;
                 }
             }
