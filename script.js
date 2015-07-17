@@ -1,5 +1,6 @@
 
 (function(window){
+
     var _t = null;
     var palyerSHRI = function(obj, params)
     {
@@ -94,7 +95,7 @@
                 _t.analyzer.getByteTimeDomainData(_t.amplitudeArray);
                 // draw the display if the audio is playing
                 if (_t.play == true) {
-                    _t.drawTimeDomain();
+                    requestAnimationFrame(_t.drawTimeDomain, _t);
                 }
             }
         },
@@ -407,39 +408,39 @@
          * void
          */
         drawTimeDomain:function() {
-            this.clearVisualization();
+            _t.clearVisualization();
             //первый тип  - только точки
-            if(this.visualizationType == 0)
+            if(_t.visualizationType == 0)
             {
-                for (var i = 0; i < Math.round(this.amplitudeArray.length); i++) {
-                    var value = this.amplitudeArray[i] / 256;
-                    var y = this.canvasHeight - (_t.canvasHeight * value) - 1;
-                    this.visulization.fillStyle = this.visualizationColor;
-                    this.visulization.fillRect(i, y, 1, 1);
+                for (var i = 0; i < Math.round(_t.amplitudeArray.length); i++) {
+                    var value = _t.amplitudeArray[i] / 256;
+                    var y = _t.canvasHeight - (_t.canvasHeight * value) - 1;
+                    _t.visulization.fillStyle = _t.visualizationColor;
+                    _t.visulization.fillRect(i, y, 1, 1);
                 }
             }
             //второй тип  - волнообразная масса
-            if(this.visualizationType == 1)
+            if(_t.visualizationType == 1)
             {
-                for (var i = 0; i < Math.round(this.amplitudeArray.length); i++) {
-                    var value = this.amplitudeArray[i] / 256;
-                    var y = this.canvasHeight - (_t.canvasHeight * value) - 1;
-                    this.visulization.fillStyle = this.visualizationColor;
-                    this.visulization.fillRect(i, this.canvasHeight, 1, -y);
+                for (var i = 0; i < Math.round(_t.amplitudeArray.length); i++) {
+                    var value = _t.amplitudeArray[i] / 256;
+                    var y = _t.canvasHeight - (_t.canvasHeight * value) - 1;
+                    _t.visulization.fillStyle = _t.visualizationColor;
+                    _t.visulization.fillRect(i, _t.canvasHeight, 1, -y);
                 }
             }
-            if(this.visualizationType == 2)
+            if(_t.visualizationType == 2)
             {
                 //Получаем кол-во полос в зависимости от ширины окна и ширины полоски
-                var needElements = this.canvasWidth / this.visualizationWidth;
+                var needElements = _t.canvasWidth / _t.visualizationWidth;
                 //Получаем делитель
-                var divedeNum = Math.round(this.amplitudeArray.length/ needElements);
+                var divedeNum = Math.round(_t.amplitudeArray.length/ needElements);
 
-                for (var i = 0; i < Math.round(this.amplitudeArray.length/ divedeNum); i++) {
-                    var value = this.amplitudeArray[i*divedeNum] / 256;
-                    var y = this.canvasHeight - (_t.canvasHeight * value);
-                    this.visulization.fillStyle = this.visualizationColor;
-                    this.visulization.fillRect(i*this.visualizationWidth, this.canvasHeight, this.visualizationWidth- 0.5, -y);
+                for (var i = 0; i < Math.round(_t.amplitudeArray.length/ divedeNum); i++) {
+                    var value = _t.amplitudeArray[i*divedeNum] / 256;
+                    var y = _t.canvasHeight - (_t.canvasHeight * value);
+                    _t.visulization.fillStyle = _t.visualizationColor;
+                    _t.visulization.fillRect(i*_t.visualizationWidth, _t.canvasHeight, _t.visualizationWidth- 0.5, -y);
                 }
             }
         },
