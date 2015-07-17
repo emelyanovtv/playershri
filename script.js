@@ -1154,12 +1154,14 @@
                 maxdata = newmax;
                 if(bytes == 0) callback('',[]);
             }
+            function abortRead(reader) {
+                reader.abort();
+            }
             var responseText = '';
             reader.onloadend = function(ev) {
                 if(reader.result){
                     responseText = reader.result;
                 }
-                    if(reader.result.length > maxdata) reader.abort();
 
                     if(responseText.length > pos + bits_required && bits_required){
                         var data = responseText.substr(pos, bits_required);
@@ -1168,11 +1170,11 @@
                         bits_required = 0;
                         if(handle(data, arrdata) === false){
                           reader.abort();
-                            return;
                         }
                     }
 
                 setTimeout(arguments.callee, 0);
+                return true;
             };
             reader.readAsBinaryString(file);
             return [reader, ID3v2.parseStream(read, onComplete)];
