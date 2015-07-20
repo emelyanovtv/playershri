@@ -103,7 +103,7 @@
                 _t.analyzer.getByteTimeDomainData(_t.amplitudeArray);
                 // draw the display if the audio is playing
                 if (_t.play == true) {
-                    requestAnimationFrame(_t.drawTimeDomain, _t);
+                    requestAnimationFrame(_t.drawTimeDomain, _t.visulization);
                 }
             }
         },
