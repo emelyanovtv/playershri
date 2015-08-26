@@ -1193,7 +1193,7 @@
 
 playerSHRI(document.getElementById('palyer'),{
     eqDefault: 'rock',
-    visualizationType: 0, //  варианты 0,1,2
+    visualizationType: 1, //  варианты 0,1,2
     visualizationColor: '#3333FF'
 });
 //конец )
